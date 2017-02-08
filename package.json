@@ -13,6 +13,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "clipboard": "^1.5.12",
     "echarts": "^3.2.3",
     "gulp-manifest": "^0.1.1",
@@ -29,6 +30,7 @@
     "sass-loader": "^4.0.0",
     "scss-loader": "^0.0.1",
     "vue": "^2.0.1",
+    "vue-axios": "^1.2.2",
     "vue-moment": "^2.0.1",
     "vue-multiselect": "^1.0.1",
     "vue-resource": "^1.0.3",

@@ -5,14 +5,17 @@
 'use strict';
 import Vue from 'vue';
 import App from './App';
-import router from './router.js'
+import router from './router.js';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 import "./theme/util.scss";
 import "bootstrap/scss/bootstrap.slim.scss";
 import "bootstrap/js/tooltip.js";
 import "bootstrap/js/modal.js";
 import "bootstrap/js/transition.js";
 import attachFastClick from "fastclick";
-import ua from './plugin/parseUA'
+import ua from './plugin/parseUA';
+Vue.use(VueAxios, axios)
 
 /**
  * $router全局化，便于外部js调用

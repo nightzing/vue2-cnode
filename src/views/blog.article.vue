@@ -1,12 +1,12 @@
 <template>
   <div class="article animated fadeIn container">
     <div class="row">
-      <div id="article" class="col-lg-8">
+      <div id="article" class="col-lg-12">
         <div class="article-detail">
           <!--文章-->
           <div class="paper" :class="{'loading':isLoading}">
             <section class="paper__header">
-              <ol class="breadcrumb  hidden-xs">
+              <ol class="breadcrumb  hidden-xs" style="background:none;">
                 <li>
                   <router-link :to="{ name: 'index'}" tag="a">首页</router-link>
                 </li>
@@ -17,57 +17,55 @@
               </ol>
               <h1>{{article.title}}</h1>
             </section>
+             <!-- <div class="article__author">
+                <div class="article__avter">
+                   <img :src="author.avatar_url" alt="">
+                </div>
+                <div class="article__authorName">{{author.loginname}}</div>
+              </div> -->
             <section class="paper__info">
               <div class="paper__info--span">
-                <i class="fa fa-calendar"></i>
-                <span>{{article.publish_time  | moment("from","now")}}</span>
+               <!--  <i class="fa fa-calendar"></i> -->
+                <span>{{article.create_at  | moment("from","now")}}</span>
               </div>
               <div class="paper__info--span">
-                <i class="fa fa-book"></i>
-                阅读数
-                <span>{{article.read_num}}</span>
+                <!-- <i class="fa fa-book"></i> -->
+                访问量
+                <span>{{article.visit_count}}</span>
               </div>
               <a href="#comment" class="paper__info--span">
-                <i class="fa fa-comments"></i>
+             <!--    <i class="fa fa-comments"></i> -->
                 评论数
-                <span>{{recountCommentNum}}</span>
+                <span>{{article.reply_count}}</span>
               </a>
               <!--hidden-xs-->
               <div class="paper__info--span hidden-xs" v-for="tag of article.tags">
                 <i class="fa fa-tag"></i> <span>{{tag.name}}</span>
               </div>
             </section>
-            <section class="paper__content">
-              <div class="paper__content--inner markdown-body hljs" v-html="article.html">
-                <!--{{{article.content}}}-->
-              </div>
+            <section class="paper__content">{{article.content}}
+             <!--  <div class="paper__content--inner markdown-body hljs" v-html="article.html"></div> -->
               <!--page-->
             </section>
 
             <!--the end-->
           </div>
           <!--评论-->
-          <section id="comment" class="commentbox">
-            <!--标题-->
+<!--           <section id="comment" class="commentbox">
             <div class="commentbox__header">
               <h3><span class="commentbox__header--Comments">Comments</span><span class="commentbox__header--count">{{recountCommentNum}}</span>
               </h3>
             </div>
-            <!--提问题-->
-            <!--hidden-xs-->
             <div class="commentBox__question " @click="replyBtn('')">
               <comment-box :article-id="article._id" :pre-id="article._id"></comment-box>
             </div>
-
-            <!--问题盒子-->
             <div class="commentbox__inner">
               <div class="comments" v-for="comment of commentList">
-                <!--{{comment._id}}{{'&#45;&#45;'}}{{chain.selectId ==comment._id}}{{'&#45;&#45;'}}{{toggle}}{{'&#45;&#45;'}}{{chain.selectId}}-->
                 <div class="comments__ask">
                   <div class="comments__ask__header">
                     <span class="name">{{comment.name}}</span>&ensp;·&ensp;
                     <span>{{comment.time | moment("from","now")}}</span>
-                    <!--hidden-xs-->
+                  
                     <span class="">&ensp;·&ensp;<span class="reply"
                                                       @click="replyBtn(comment._id)">回复</span></span>
                   </div>
@@ -92,69 +90,10 @@
                 </div>
               </div>
             </div>
-          </section>
-
+          </section> -->
         </div>
         <copyright></copyright>
       </div>
-      <div class="col-lg-4 visible-lg clearfix">
-        <aside class="article-aside">
-          <!--最新排行 for 10-->
-          <div class="topBar">
-            <div class="topBar--title">
-              <h3 class="topBar--title__h3">RECENT
-                <small>Top{{topNum}}</small>
-              </h3>
-            </div>
-            <ul class="topBar--ul">
-              <loading :number="3" color="#38b7ea" class="topBar--loading" v-if="!articleTop.latest"></loading>
-              <li v-show="articleTop.latest.length>0" class="topArticle--li animated fadeIn"
-                  v-for="article of articleTop.latest">
-                <router-link target="_blank" :to="{ name: 'article',params: { articleId: article._id }}"
-                             activeClass="active" tag="a">{{article.title}}
-                </router-link>
-                <span>({{article.read_num}})</span>
-              </li>
-            </ul>
-          </div>
-          <!--阅读排行 for 10-->
-          <div class="topBar">
-            <div class="topBar--title">
-              <h3 class="topBar--title__h3">READ
-                <small>Top{{topNum}}</small>
-              </h3>
-            </div>
-            <ul class="topBar--ul">
-              <loading :number="3" color="#38b7ea" class="topBar--loading" v-if="!articleTop.latest"></loading>
-              <li v-show="articleTop.read.length>0" class="topArticle--li animated fadeIn"
-                  v-for="article of articleTop.read">
-                <router-link target="_blank" :to="{ name: 'article',params: { articleId: article._id }}"
-                             activeClass="active" tag="a">{{article.title}}
-                </router-link>
-                <span>({{article.read_num}})</span>
-              </li>
-            </ul>
-          </div>
-          <!--标签 最多10个-->
-          <div class="topBar">
-            <div class="topBar--title">
-              <h3 class="topBar--title__h3">TAGS
-                <!--<small>Top10</small>-->
-              </h3>
-            </div>
-            <ul class="topBar--ul">
-              <loading :number="3" color="#38b7ea" class="topBar--loading" v-if="!articleTop.latest"></loading>
-              <li v-show="articleTop.tag.length>0" class="topTag--li  animated fadeIn" v-for="tag of articleTop.tag">
-                <router-link :to="{ name: 'tagListFindByTagId',query: { listType: 'tagList',tagId: tag._id }}"
-                             activeClass="active" tag="a">
-                  {{tag.name}}({{tag.used_num}})
-                </router-link>
-              </li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </div>
     <!--返回最上层-->
     <div id="toTop" class="backToTop">
       <i class="fa fa-arrow-up"></i>
@@ -330,9 +269,10 @@
         .paper__info {
           .paper__info--span {
             opacity: 0.3;
-            background: #fff;
+            background: red;
             min-width: 70px;
             text-decoration: none;
+            padding: 0 5px;
           }
         }
         .paper__content {
@@ -349,7 +289,6 @@
       }
       .paper__header {
         border: 1px solid transparent;
-        padding: 35px 35px 0;
         background: #fff;
         text-align: right;
         a {
@@ -367,11 +306,11 @@
       }
       .paper__info {
         @include display-flex;
-        @include justify-content(flex-end);
+        @include justify-content(flex-start);
         @include align-items(center);
-        background: $base-background-color;
+        background: #f7f7f7;
         padding: 10px 35px;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.8) inset;
+     
         transition: all ease 200ms;
         .paper__info--span {
           color: #eee;
@@ -380,9 +319,6 @@
           //min-width: 70px;
           white-space: nowrap;
           text-decoration: none;
-        }
-        a:hover {
-          color: $base-theme-color;
         }
       }
       .paper__content {
@@ -738,10 +674,7 @@
         }
       }
     }
-
   }
-
-
 </style>
 <script type="text/javascript">
   import API from "../config.js"
@@ -902,11 +835,19 @@
         $(window).scrollTop(0);
         //$('body, html').animate({scrollTop: 0}, 600);
       });
+      this.$http.get(`https://cnodejs.org/api/v1/topic/`+ articleId + `?mdrender=false`).then(function(response){
+        console.log(response.data);
+         this.article = Object.assign({}, this.articleList, response.data.data);
+      // 响应成功回调
+        }, function(response){
+      // 响应错误回调
+    });
+      // // 获取文章
+      // _this.getArticleById(articleId);
+      // // 获取文章top榜单
+      // _this.getArticleTop(_this.topNum);
 
-      // 获取文章
-      _this.getArticleById(articleId);
-      // 获取文章top榜单
-      _this.getArticleTop(_this.topNum);
+
     },
     mounted: function () {
       this.$emit('notice')
@@ -920,5 +861,4 @@
       loading
     },
   }
-
 </script>

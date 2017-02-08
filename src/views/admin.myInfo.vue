@@ -373,7 +373,6 @@
   import copyright from '../components/copyright.vue'
   import {addImgPrefix} from "../utils/filters.js";
   import {setLoginState} from '../vuex/actions'
-
   import {ImageUpload} from "../api/api_upload";
   import {mapActions} from 'vuex';
 

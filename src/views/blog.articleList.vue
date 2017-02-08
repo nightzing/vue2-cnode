@@ -4,28 +4,42 @@
          v-infinite-scroll="loadMore"
          infinite-scroll-disabled="infiniteDisabled"
          infinite-scroll-distance="10">
-      <router-link class="article" v-for="article of articleList" :key="article._id"
-                   :to="{ name: 'article',params: { articleId: article._id }}" activeClass="active" tag="article">
+         <section class="paper__header">
+             <ol class="breadcrumb  hidden-xs" style="background:none;">
+               <li class="">
+                 <router-link :to="{ name: 'index'}" tag="a">首页</router-link>
+               </li>
+               <li class="active">博客</li>
+             </ol>
+        </section>
+      <router-link class="article" v-for="article of subjects" :key="article._id"
+                   :to="{ name: 'article',params: { articleId: article.id }}" activeClass="active" tag="article">
         <div class="article__header">
           <h2 class="article__header--title">{{article.title}}</h2>
-          <div class="article__header--content">
-            {{article.abstract}}
+         <!--  <div class="article__header--content">
+            {{article.content}}
+          </div> -->
+          <div class="article__author">
+            <div class="article__avter">
+               <img :src="article.author.avatar_url" alt="">
+            </div>
+            <div class="article__authorName">{{article.author.loginname}}</div>
           </div>
         </div>
         <div class="article__infobox">
           <div class="article__info">
             <div class="article__info--each">
               <i class="fa fa-calendar"></i>
-              <span>{{article.publish_time  | moment("from","now")}}</span>
+              <span>{{article.create_at  | moment("from","now")}}</span>
             </div>
             <div class="article__info--each">
               <i class="fa fa-book"></i>
               阅读数
-              <span class="article-readnum">{{article.read_num}}</span>
+              <span class="article-readnum">{{article.visit_count}}</span>
             </div>
             <div class="article__info--each">
               <i class="fa fa-comments"></i>评论数
-              <span class="article-comment">{{article.comment_num}}</span>
+              <span class="article-comment">{{article.reply_count}}</span>
             </div>
             <div class="article__info--each hidden-xs" v-for="tag of article.tags">
               <i class="fa fa-tag"></i> <span>{{tag.name}}</span>
@@ -74,13 +88,13 @@
       overflow: hidden;
 
       &:hover .article__header .article__header--title {
-        color: $base-theme-color;
+        color: cornflowerblue;
         &:after {
-          border-top: 3px solid $base-theme-color;
+          border-top: 3px solid cornflowerblue;
         }
       }
       &:hover .article__infobox .arrticle__readmore span {
-        background-color: $base-theme-color;
+        background-color:  cornflowerblue;
       }
       //标题
       .article__header {
@@ -107,7 +121,7 @@
             bottom: 10px;
             right: 0;
             height: 0;
-            border-top: 3px solid $base-theme-color;
+            border-top: 3px solid cornflowerblue;
             border-top-right-radius: 3px;
             border-bottom-right-radius: 3px;
 
@@ -124,7 +138,22 @@
             margin: 0;
           }
         }
+        .article__avter{
+           width: 100px;
+           height: 100px;
+           cursor: pointer;
+           display:inline-block;
       }
+      .article__authorName{width:80%; display:inline-block;padding-left:2%;}
+      .article__avter img{
+          width: 100%;
+          height: 100%;
+           border-radius: 50%;
+          box-shadow: 0 3px 12px #000;
+      }
+      }
+       //头像信息
+
       //文章信息
       .article__infobox {
         @include display-flex;
@@ -148,7 +177,7 @@
         //阅读更多
         .arrticle__readmore {
           span {
-            border: 1px solid $base-theme-color;
+            border: 1px solid cornflowerblue;
             transition: all ease 200ms;
             border-radius: 34px;
             color: #eee;
@@ -170,6 +199,10 @@
         .article__header {
           padding: 30px;
         }
+        .article__avter{
+             width: 50px;
+             height: 50px;
+        }
         .article__infobox {
           padding: 14px 20px
         }
@@ -183,6 +216,7 @@
       width: 100%;
       .article {
         margin-bottom: 10px;
+        background: linear-gradient(-150deg, transparent 1.5em, #fff 0);
         &:hover .article__header .article__header--title {
           color: inherit;
           &:after {
@@ -201,6 +235,11 @@
             font-size: 14px;
           }
         }
+         .article__avter{
+           width: 50px;
+           height: 50px;
+           cursor: pointer;
+      }
         .article__infobox {
           padding: 10px 0px;
           display: flex;
@@ -217,6 +256,17 @@
           }
         }
       }
+      .article:before{
+         content: '';
+          position: absolute;
+          top: 0; right: 0;
+          width: 1.73em; height: 3em;
+          background: linear-gradient(to left bottom, transparent 50%, rgba(0,0,0,.2) 0, rgba(0,0,0,.4)) 100% 0 no-repeat;
+          transform: translateY(-1.3em) rotate(-30deg);
+          transform-origin: bottom right;
+          border-bottom-left-radius: .5em;
+          box-shadow: -.2em .2em .3em -.1em rgba(0,0,0,.15)
+      }
     }
   }
 
@@ -228,6 +278,7 @@
   import copyright from '../components/copyright.vue'
   import {GetArticleListForFrontEnd} from "../api/api_article"
   import Vue from 'vue'
+  import "bootstrap/scss/bootstrap/_breadcrumbs.scss";
   import InfiniteScroll from 'InfiniteScroll';
   Vue.use(InfiniteScroll);
 
@@ -236,6 +287,7 @@
       return {
         isLoading: true,//loading提示
         articleList: [],
+        subjects: [],
         hasData: true,//hasData提示
         pageNow: 0,
         infiniteDisabled: false,//是否禁用无限加载
@@ -292,13 +344,18 @@
     },
     created: function () {
       const _this = this;
-      // $(window).scrollTop(0);// 滚到顶部
-      //_this.getArticleList();
+      // https://api.douban.com/v2/movie/top250?count=10
+      this.axios.get(`https://api.getweapp.com/vendor/cnode/api/v1/topics?page=1`).then((response)=> {
+          this.subjects = Object.assign({}, this.subjects, response.data.data);
+      }).catch(function (error) {
+      });
+      $(window).scrollTop(0);// 滚到顶部
+      _this.getArticleList();
     },
     destroyed: function () {
     },
     components: {
-      noData, copyright, loading,
+       copyright, loading,
     },
   }
 </script>

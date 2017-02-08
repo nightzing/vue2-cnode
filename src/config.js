@@ -14,10 +14,11 @@ if (process.env.NODE_ENV === 'production') {
   };
 } else {
   CONFIG = {
-    url: "http://127.0.0.1:8080",
+   url:"https://cnodejs.org",
+    // url:"http://mj.xushijiear.com:4002",
     //我的信息_id
     MY_INFO_ID: '57ef5987e1bb0b0b7cbd17e8',
-    //我对对评论进行回复的信息
+    //我对评论进行回复的信息
     MY: '我',
     EMAIL: '280304286@163.com'
   };
@@ -181,19 +182,19 @@ module.exports = {
   /**
    * 切换的背景列表
    * */
-  imageList: [
-    'http://xiangsongtao.com/bg_resource/1.jpg',
-    'http://xiangsongtao.com/bg_resource/2.jpg',
-    'http://xiangsongtao.com/bg_resource/3.jpg',
-    'http://xiangsongtao.com/bg_resource/4.jpg',
-    'http://xiangsongtao.com/bg_resource/5.jpg',
-    'http://xiangsongtao.com/bg_resource/6.jpg',
-    'http://xiangsongtao.com/bg_resource/7.jpg',
-    'http://xiangsongtao.com/bg_resource/8.jpg',
-    'http://xiangsongtao.com/bg_resource/9.jpg',
-    'http://xiangsongtao.com/bg_resource/10.jpg',
-    'http://xiangsongtao.com/bg_resource/11.jpg',
-    'http://xiangsongtao.com/bg_resource/12.jpg',
-  ]
+  // imageList: [
+  //   'http://xiangsongtao.com/bg_resource/1.jpg',
+  //   'http://xiangsongtao.com/bg_resource/2.jpg',
+  //   'http://xiangsongtao.com/bg_resource/3.jpg',
+  //   'http://xiangsongtao.com/bg_resource/4.jpg',
+  //   'http://xiangsongtao.com/bg_resource/5.jpg',
+  //   'http://xiangsongtao.com/bg_resource/6.jpg',
+  //   'http://xiangsongtao.com/bg_resource/7.jpg',
+  //   'http://xiangsongtao.com/bg_resource/8.jpg',
+  //   'http://xiangsongtao.com/bg_resource/9.jpg',
+  //   'http://xiangsongtao.com/bg_resource/10.jpg',
+  //   'http://xiangsongtao.com/bg_resource/11.jpg',
+  //   'http://xiangsongtao.com/bg_resource/12.jpg',
+  // ]
 
 };

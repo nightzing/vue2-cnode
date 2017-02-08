@@ -5,27 +5,27 @@
       <a v-if="isMobile && this.$route.name=='article'" @click="navBack" class="nav__item" title="后退">
         <i class="fa fa-arrow-left  fa-fw fa-lg blue blackBG"></i>
       </a>
-      <a v-else class="nav__item" data-toggle="tooltip" data-placement="right" title="SongTao">
+    <!--   <a v-else class="nav__item" data-toggle="tooltip" data-placement="right" title="SongTao">
         <span class="siteLogo"></span>
-      </a>
-      <router-link class="nav__item" :to="{ name: 'index'}" exact data-toggle="tooltip" activeClass="active"
-                   data-placement="right"
-                   title="首页">
-        <i class="fa fa-home fa-fw fa-lg"></i>
-      </router-link>
-      <!--<router-link class="nav__item" :to="{ name: 'blog'}" activeClass="active"-->
-      <router-link class="nav__item" :to="{ name: 'blog'}" activeClass="active"
-                   data-toggle="tooltip" data-placement="right" title="博客">
-        <i class="fa fa-map-signs fa-fw fa-lg"></i>
-      </router-link>
-      <router-link class="nav__item" :to="{ name: 'music'}" data-toggle="tooltip" activeClass="active"
+      </a> -->
+     <!--  <router-link class="nav__item" :to="{ name: 'index'}" exact data-toggle="tooltip" activeClass="active"
+                  data-placement="right"
+                  title="首页">
+       <i class="fa fa-home fa-fw fa-lg"><span class="nav_title">首页</span></i>
+     </router-link>
+     <router-link class="nav__item" :to="{ name: 'blog'}" activeClass="active"
+     <router-link class="nav__item" :to="{ name: 'blog'}" activeClass="active"
+                  data-toggle="tooltip" data-placement="right" title="博客">
+       <i class="fa fa-map-signs fa-fw fa-lg"><span class="nav_title">博客</span></i>
+     </router-link> -->
+      <!-- <router-link class="nav__item" :to="{ name: 'music'}" data-toggle="tooltip" activeClass="active"
                    data-placement="right"
                    title="音乐">
         <i class="fa fa-music fa-fw fa-lg"></i>
         <section class="rightBottomStatus">
-          <i class="fa fa-lg" :class="{true:'fa-pause-circle-o',false:' fa-play-circle-o playing'}[!isPlaying]"></i>
+          <i class="fa fa-lg" :class="{true:'fa-pause-circle-o',false:' fa-play-circle-o playing'}[!isPlaying]"><span class="nav_title">首页</span></i>
         </section>
-      </router-link>
+      </router-link> -->
     </nav>
     <nav class="nav__bottom">
       <router-link v-show="isLogin" class="nav__item animated fadeIn hidden-xs"
@@ -55,7 +55,7 @@
         <i class="fa fa-comments fa-lg"></i>
       </router-link>
       <!--切换背景-->
-      <a class="nav__item fa-stack fa-lg hidden-xs" data-toggle="tooltip" data-placement="right" title="切换背景"
+     <!--  <a class="nav__item fa-stack fa-lg hidden-xs" data-toggle="tooltip" data-placement="right" title="切换背景"
          @click="changeBG()">
         <i class="fa fa-photo fa-fw fa-lg"></i>
         <section class="rightBottomStatus">
@@ -70,7 +70,7 @@
       <router-link v-show="!isLogin" class="nav__item hidden-xs" :to="{ name: 'login'}" activeClass="active"
                    data-toggle="tooltip" data-placement="right" title="登录">
         <i class="fa fa-sign-in fa-lg"></i>
-      </router-link>
+      </router-link> -->
     </nav>
   </div>
 </template>
@@ -88,7 +88,7 @@
     justify-content: space-between;;
     align-items: center;
     position: fixed;
-    left: 0;
+    right: 0;
     top: 0;
     z-index: 1040;
     background-color: rgba(0, 0, 0, .6);
@@ -115,6 +115,7 @@
       text-decoration: none;
     }
     .nav__item {
+      padding-top:5rem;
       text-align: center;
       display: flex;
       justify-content: flex-start;
@@ -133,10 +134,11 @@
         font-size: 30px;
         background: rgba(0, 0, 0, 0.9) url(../assets/pleasehole-img.png) no-repeat center center/28px auto;
       }
+      .nav_title{padding-left:2%;}
 
       & > i {
         font-size: 18px;
-        width: 45px;
+        width: 100%;
         height: 45px;
         display: flex;
         justify-content: center;
@@ -212,7 +214,7 @@
 
   @include media(">desktop_small") {
     .blogNav {
-      width: 45px;
+      width: 10%;
       height: 100%;
       /*导航上面结构*/
       .nav__top {
@@ -242,7 +244,7 @@
   export default{
     data(){
       return {
-        isChangeBG: false,
+        isChangeBG: true,
         bgIndexNow: '',
         isMobile:window.ua.mobile,
       }
@@ -385,6 +387,4 @@
       _this.tooltip();
     }
   }
-
-
 </script>

@@ -322,7 +322,17 @@
   /*响应式处理*/
   @include media(">desktop") {
     .myinfo {
-      width: 33.33%;
+        border: 40px solid transparent;
+        border-image: 33.334% url('data:image/svg+xml,<svg xmlns="http:%2F%2Fwww.w3.org%2F2000%2Fsvg" width="30" height="30"> \
+                            <circle cx="5" cy="5" r="5" fill="%23ab4"%2F><circle cx="15" cy="5" r="5" fill=" %23655"%2F> \
+                            <circle cx="25" cy="5" r="5" fill="%23e07"%2F><circle cx="5" cy="15" r="5" fill=" %23655"%2F> \
+                            <circle cx="15" cy="15" r="5" fill="hsl(15, 25%, 75%)"%2F> \
+                            <circle cx="25" cy="15" r="5" fill=" %23655"%2F><circle cx="5" cy="25" r="5" fill="%23fb3"%2F> \
+                            <circle cx="15" cy="25" r="5" fill=" %23655"%2F><circle cx="25" cy="25" r="5" fill="%2358a"%2F><%2Fsvg>');
+      padding: 1em;
+      border-image-repeat: round; margin-top: 1em;
+      border-image-repeat: round;
+      width: 30%;
       height: 100%;
       display: flex;
       justify-content: center;
@@ -392,6 +402,7 @@
 
   @include media("<=desktop") {
     .myinfo {
+
       width: 100%;
       height: 100%;
       display: flex;
@@ -465,6 +476,14 @@
   @include media(">desktop_small", "<=desktop") {
     .myinfo {
       height: 270px;
+        border: 40px solid transparent;
+        border-image: 33.334% url('data:image/svg+xml,<svg xmlns="http:%2F%2Fwww.w3.org%2F2000%2Fsvg" width="30" height="30"> \
+                            <circle cx="5" cy="5" r="5" fill="%23ab4"%2F><circle cx="15" cy="5" r="5" fill=" %23655"%2F> \
+                            <circle cx="25" cy="5" r="5" fill="%23e07"%2F><circle cx="5" cy="15" r="5" fill=" %23655"%2F> \
+                            <circle cx="15" cy="15" r="5" fill="hsl(15, 25%, 75%)"%2F> \
+                            <circle cx="25" cy="15" r="5" fill=" %23655"%2F><circle cx="5" cy="25" r="5" fill="%23fb3"%2F> \
+                            <circle cx="15" cy="25" r="5" fill=" %23655"%2F><circle cx="25" cy="25" r="5" fill="%2358a"%2F><%2Fsvg>');
+      padding: 1em;
       .detail {
       }
     }

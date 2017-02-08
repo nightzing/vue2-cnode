@@ -3,7 +3,7 @@
   <div>
     <div class="app__content">
       <!--导航条-->
-      <blog-nav></blog-nav>
+    <!--   <blog-nav></blog-nav> -->
       <!-- 路由外链 -->
       <router-view></router-view>
       <!--qq,微信弹出层-->
@@ -109,8 +109,6 @@
       doLogout,
     },
   }
-
-
 </script>
 
 <style lang="scss">

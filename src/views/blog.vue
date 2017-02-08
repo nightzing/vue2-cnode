@@ -1,6 +1,6 @@
 <template>
   <div class="blog animated fadeIn">
-    <my-info></my-info>
+   <!--  <my-info></my-info> -->
     <!-- 路由外链 -->
     <transition name="fade">
       <div class="blog__content" v-show="!isShowMyWords">
@@ -17,8 +17,6 @@
 
   //base
   @import "../theme/theme.scss";
-
-
   .blog {
     position: relative;
     .blog__content {
@@ -55,8 +53,6 @@
       width: 100%;
       .blog__content {
         z-index: 2;
-        width: 63%;
-        padding-left: 36%;
         position: relative;
       }
     }
@@ -131,6 +127,4 @@
       myInfo
     },
   }
-
-
 </script>

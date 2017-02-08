@@ -20,6 +20,8 @@ export const GetArticleById = function (articleId) {
     Vue.http.get(url).then((response) => {
       // success callback
       let result = response.data;
+       console.log( "okk");
+      console.log( result);
       if (parseInt(result.code) === 1) {
         resolve(result.data);
         Vue.$sessionStorage.$set(url, result.data);

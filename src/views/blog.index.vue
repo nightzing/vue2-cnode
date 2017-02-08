@@ -2,43 +2,57 @@
   <div id="indexBox" class="indexBox animated fadeIn">
     <div class="index-content">
       <div class="head-wrap">
-        <h3 class="text-center services">前端工程师 - Nodejs工程师</h3>
+        <h3 class="text-center services">we are five</h3>
         <div id="headlines">
-          <h1 :class="{'current': now==1}" class="text-center textItem">Hello <span class="blue">Vue2.0</span></h1>
-          <h1 :class="{'current': now==2}" class="text-center textItem">我是<span class="blue">Songtao</span></h1>
-          <h1 :class="{'current': now==3}" class="text-center textItem">不忘<span class="blue">初心</span> 方得<span
-            class="blue">始终</span></h1>
-          <h1 :class="{'current': now==4}" class="text-center textItem"><span class="blue">坚持</span>才是捷径!</h1>
-          <h1 :class="{'current': now==5}" class="text-center textItem">No Way <span class="blue">Back</span>,Go Ahead!
-          </h1>
-          <h1 :class="{'current': now==6}" class="text-center textItem">开始<span class="blue">行动</span>吧!</h1>
+          <h1 :class="{'current': now==1}" class="text-center textItem">Hello <span class="blue">color.blog</span></h1>
         </div>
-        <div class="text-center cat">一个记录时光的博客</div>
+        <div class="text-center cat">不一样的烟火</div>
       </div>
       <section class="index-btnBox">
         <router-link class="index-btnBox-each text-center" :to="{ name: 'blog',query: { listType: 'latest' }}"
                      activeClass="active" tag="div">我的博客
         </router-link>
-        <router-link class="index-btnBox-each text-center" :to="{ name: 'music'}" activeClass="active" tag="div">我的音乐
-        </router-link>
+       <!--  <router-link class="index-btnBox-each text-center" :to="{ name: 'music'}" activeClass="active" tag="div">我的音乐
+        </router-link> -->
       </section>
       <section class="index-copyright">
-        <copyright></copyright>
+      <!--   <copyright></copyright> -->
       </section>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
+@keyframes panoramic {
+  to { background-position: 100% 0;}
+}
+ @keyframes typing {
+              from { width: 0 }
+}
+
+@keyframes caret {
+  50% { border-right-color: transparent; }
+}
   //base
   @import "../theme/theme.scss";
   //首次进入页面,主页展示切换文字
   /*index的内容*/
   .indexBox {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    background: hsl(20, 40%, 90%);
+    background-image: 
+      linear-gradient(90deg, #fb3 11px, transparent 0),
+      linear-gradient(90deg, #ab4 23px, transparent 0),
+      linear-gradient(90deg, #655 23px, transparent 0);
+      background-size: 83px 100%, 61px 100%, 41px 100%;
+      animation: panoramic 15s linear infinite alternate;
+      animation-play-state: paused;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      &:hover{
+          animation-play-state: running;
+      }
     .index-content {
       width: 100%;
       height: 100%;
@@ -67,7 +81,6 @@
         }
         //职位
         .services {
-          border-bottom: 3px solid rgba(255, 255, 255, .5);
           text-transform: uppercase;
         }
         //座右铭
@@ -98,6 +111,15 @@
             padding: 0 10px;
             .blue {
               color: $base-theme-color;
+              font: bold 100% Consolas, Monaco, monospace;
+            /*width: 8.25em;*/
+            width: 15ch;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: .05em solid;
+                        animation: typing 100s steps(15),
+                       caret 100s steps(1) infinite;
+
             }
           }
         }
@@ -130,16 +152,18 @@
       .index-btnBox-each {
         min-width: 62px;
         color: #fff;
-        border: 1px solid $base-theme-color;
-        border-radius: 15px;
+        border: 1px solid beige;
+        border-radius: 5px;
         line-height: 30px;
         box-sizing: content-box;
         padding: 0 15px;
         cursor: pointer;
         font-size: 14px;
         transition: all ease 300ms;
+     
+        box-shadow: 0px 5px #687e00;
         &:hover {
-          background: #49c8fb;
+          animation-play-state: running;
         }
       }
     }
